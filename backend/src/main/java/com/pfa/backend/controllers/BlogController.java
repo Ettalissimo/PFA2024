@@ -19,6 +19,7 @@ import com.pfa.backend.entities.Pathologie;
 import com.pfa.backend.entities.User;
 import com.pfa.backend.repositories.BlogRepository;
 import com.pfa.backend.repositories.UserRepository;
+import com.pfa.backend.responseClass.pythonApiResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -103,5 +104,21 @@ public class BlogController {
         else if(choice<0) blog.downvotes++;
         blogRepo.save(blog);
         return new ResponseEntity<>("reaction saved",HttpStatus.OK);
+    }
+
+    @GetMapping("/fetchListBlog")
+    public ResponseEntity<pythonApiResponse> fetchListBlog() {
+        String url = "http://localhost:"+port+"/listThreads";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
+        return new ResponseEntity<>(response.getBody(),HttpStatus.FOUND);
+    }
+
+    @GetMapping("/fetchedBlog")
+    public ResponseEntity<pythonApiResponse> fetchSelectedBlog() {
+        String url = "http://localhost:"+port+"/selectedThread";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
+        return new ResponseEntity<>(response.getBody(),HttpStatus.FOUND);
     }
 }

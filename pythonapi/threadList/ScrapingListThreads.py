@@ -47,7 +47,7 @@ def get_list_pathologie(count=1, keyword ='Asthme' ):
     p_interests = driver.find_elements("xpath",
                                     "//div[contains(@class,'module-discussions box-list-thread')]//h2//a[contains(@class,'for-box-click')]")
 
-    result_interest = pd.DataFrame(columns=['Title', 'Link'])
+    result_interest = pd.DataFrame(columns=['title', 'link'])
     
     url = link_pathologie
     parsed_url = urlparse(url)
