@@ -5,6 +5,7 @@ import time
 from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -27,6 +28,10 @@ def get_list_pathologie(count=1, keyword ='Asthme' ):
     for page_nb in range(1, count+1):
             page_url = f"https://www.carenity.com/forum/index-forums/{lettre}?page={page_nb}"
             driver.get(page_url)
+
+            button_agree = driver.find_element(by=By.ID
+                                               , value="didomi-notice-agree-button")
+            button_agree.click()
             time.sleep(12)   #to not get blocked
             links = driver.find_elements("xpath", 
                                         f"//div[contains(@class,'box-list')]//a[contains(text(),'{keyword}')]")

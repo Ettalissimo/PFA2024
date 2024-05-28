@@ -5,6 +5,7 @@ import time
 from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -41,6 +42,11 @@ def get_selected_thread( topic = 1 , th_url = "https://www.carenity.com/infos-ma
 
     page_url = th_url
     driver.get(page_url)
+
+
+    button_agree = driver.find_element(by=By.ID
+                                               , value="didomi-notice-agree-button")
+    button_agree.click()
     time.sleep(12)   #to not get blocked
     Text_pathologie = driver.find_elements("xpath", 
                                            f"//section[contains(@id,'article')]//div[contains(@class,'text')]")
