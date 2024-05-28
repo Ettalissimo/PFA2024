@@ -1,0 +1,25 @@
+<div class="header-thread-container">
+    <div class="header-tag-container">
+      <div class="left-bar">
+        <div class="title">Home</div>
+      </div>    
+      <div class="right-buttons">
+        <button> Default </button>
+        <button> A-Z </button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="threads">
+
+        <app-blog-details 
+          *ngFor="let blog of blogs"
+          [blog]="blog"> 
+        </app-blog-details>
+        
+      </div>
+      <div class="tags">
+        <app-tags-box></app-tags-box>
+      </div>
+    </div>
+</div>

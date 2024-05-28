@@ -1,0 +1,63 @@
+.blog-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.blog-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.tags {
+  font-weight: bold;
+  color: #555;
+}
+
+.user-time {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.path {
+  margin-bottom: 16px;
+}
+
+.path-name {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.path-cause, .path-symptoms, .treatment, .nbrSearch {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.reaction {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.vote-button {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.vote-button .icon {
+  margin-right: 4px;
+}
+
+.vote-button:hover {
+  background-color: #e9ecef;
+}

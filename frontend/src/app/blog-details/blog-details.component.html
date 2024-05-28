@@ -1,0 +1,25 @@
+<div class="blog-card">
+    <div class="blog-details">
+        <div class="tags"> {{blog.tags}} </div>
+        <div class="user-time">
+            <span class="user"> {{blog.user?.firstName}}</span>
+            <span class="postTime"> {{blog.postTime}}</span>
+        </div>
+        <div class="path">
+            <h3 class="path-name"> {{blog.pathologie?.name}} </h3>
+            <p class="path-cause"> {{blog.pathologie?.cause}} </p>
+            <p class="path-symptoms"> {{blog.pathologie?.symptoms}} </p>
+            <p class="treatment"> {{blog.pathologie?.treatment}} </p>
+            <p class="nbrSearch"> {{blog.pathologie?.nbrSearch}} </p>
+        </div>
+        <div class="reaction">
+            <button class="vote-button" id="upvote-btn">
+                <span class="icon">👍</span> <span class="upvotes">{{blog.upvotes}}</span>
+            </button>
+            <button class="vote-button" id="downvote-btn">
+                <span class="icon">👎</span> <span class="downvotes">{{blog.downvotes}}</span>
+            </button>
+        </div>
+    </div>
+</div>
+
