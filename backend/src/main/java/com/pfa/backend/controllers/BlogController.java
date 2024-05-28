@@ -21,12 +21,14 @@ import com.pfa.backend.repositories.BlogRepository;
 import com.pfa.backend.repositories.UserRepository;
 import com.pfa.backend.responseClass.pythonApiResponse;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class BlogController {
 
     @Value("${serverpython.port}")
