@@ -90,7 +90,7 @@ public class BlogController {
     @GetMapping("/blogs")
     public ResponseEntity<List<Blog>> getBlogs() {
         List<Blog> blogs = blogRepo.findAll();
-        return new ResponseEntity<>(blogs,HttpStatus.FOUND);
+        return new ResponseEntity<>(blogs,HttpStatus.OK);
     }
 
     @DeleteMapping("/blog/{id}")
