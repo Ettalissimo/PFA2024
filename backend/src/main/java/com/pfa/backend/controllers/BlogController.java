@@ -3,6 +3,7 @@ package com.pfa.backend.controllers;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.pfa.backend.entities.Blog;
+import com.pfa.backend.entities.Pathologie;
 import com.pfa.backend.entities.User;
 import com.pfa.backend.repositories.BlogRepository;
 import com.pfa.backend.repositories.UserRepository;
@@ -25,10 +28,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 @RestController
 public class BlogController {
 
+    @Value("${serverpython.port}")
+    private Integer port;
+
     @Autowired
     private BlogRepository blogRepo;
     @Autowired
     private UserRepository userRepo;
+
 
     @PostMapping("/blogs")
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blog){
