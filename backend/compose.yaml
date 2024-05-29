@@ -33,6 +33,12 @@ services:
       - MONGO
     depends_on:
       - mongo
+  ollama:
+    hostname: ollama
+    container_name: ollama
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
 
 networks:
   MONGO:
