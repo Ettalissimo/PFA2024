@@ -1,0 +1,18 @@
+
+
+<div class="search-box-container">
+
+<div class="search-container">
+    <input type="text" [(ngModel)]="keyword" placeholder="Search..." class="search-input-old" />
+    <button (click)="searchThreads()" class="search-button-old">
+      <i class="search-icon"></i> Search
+    </button>
+    
+</div>
+
+
+<div class="list-container">
+  <app-blog-search-list class="list-blog"></app-blog-search-list>
+</div>
+
+</div>

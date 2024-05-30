@@ -69,16 +69,6 @@ def get_list_pathologie(count=1, keyword ='Asthme' ):
     return result_interest
 
 
-    
-
-
-def save_pages(pages):
-    os.makedirs("data", exist_ok = True)
-    for page_nb, page in enumerate(pages):
-        with open(f"data/page_{page_nb}.html", "wb") as f_out:
-            f_out.write(page)
-
-
 def main():
     get_list_pathologie()
 

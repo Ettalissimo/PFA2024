@@ -26,4 +26,16 @@ export class BlogService {
     return this.http.post<BlogRepresentation>(BlogsUrl, product);
   }
 
+  getListBlogs(searchWord : String) {
+
+  }
+
+  searchThreads(keyword: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}?keyword=${keyword}`);
+  }
+
+  getSpecificBlog(){
+
+  }
+
 }

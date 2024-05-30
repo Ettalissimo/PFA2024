@@ -13,6 +13,9 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { BlogDetailsComponent } from './blog-details/blog-details.component';
 import { TagsBoxComponent } from './tags-box/tags-box.component';
 import { NewBlogComponent } from './new-blog/new-blog.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { BlogSearchListComponent } from './blog-search-list/blog-search-list.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { NewBlogComponent } from './new-blog/new-blog.component';
     BlogDetailsComponent,
     TagsBoxComponent,
     NewBlogComponent,
+    MyProfileComponent,
+    BlogSearchListComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
