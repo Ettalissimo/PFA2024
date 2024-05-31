@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pfa.backend.entities.Pathologie;
 import com.pfa.backend.responseClass.LlamaResponse;
 import com.pfa.backend.services.LlamaAiService;
 
@@ -19,7 +20,12 @@ public class LlamaRestController {
     @GetMapping("api/v1/ai/generate")
     public ResponseEntity<LlamaResponse> generate(
             @RequestParam(value = "promptMessage", defaultValue = "Why is the sky blue?") String promptMessage) {
-        final LlamaResponse aiResponse = llamaAiService.generateMessage(promptMessage);
+
+        String task = "Please i will give you a text"+
+        "about a certain pathology experience, i want you to extract from the text i give you information that will map to"+ 
+        "this object : '{name,cause,symptoms,treatment}', and i want you to only answer this prompt"+ 
+        "by a JSON object only with no comments included, here is the text: "+promptMessage;
+        final LlamaResponse aiResponse = llamaAiService.generateMessage(task);
         return ResponseEntity.status(HttpStatus.OK).body(aiResponse);
     }
 

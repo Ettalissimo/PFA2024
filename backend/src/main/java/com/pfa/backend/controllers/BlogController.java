@@ -1,11 +1,19 @@
 package com.pfa.backend.controllers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,17 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pfa.backend.entities.Blog;
 import com.pfa.backend.entities.Pathologie;
 import com.pfa.backend.entities.User;
 import com.pfa.backend.repositories.BlogRepository;
+import com.pfa.backend.repositories.PathologieRepository;
 import com.pfa.backend.repositories.UserRepository;
+import com.pfa.backend.responseClass.LlamaResponse;
 import com.pfa.backend.responseClass.pythonApiResponse;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 
 @RestController
@@ -34,10 +42,15 @@ public class BlogController {
     @Value("${serverpython.port}")
     private Integer port;
 
+    @Value("${spring.ai.ollama.base-url}")
+    private String urlLlama;
+
     @Autowired
     private BlogRepository blogRepo;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private PathologieRepository pathologieRepo;
 
 
     @PostMapping("/blogs")
@@ -117,10 +130,40 @@ public class BlogController {
     }
 
     @GetMapping("/fetchedBlog")
-    public ResponseEntity<pythonApiResponse> fetchSelectedBlog() {
+    public ResponseEntity<Pathologie> fetchSelectedBlog() {
         String url = "http://localhost:"+port+"/selectedThread";
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
-        return new ResponseEntity<>(response.getBody(),HttpStatus.FOUND);
+        Pathologie pathologie = mapText(response.getBody().getText());
+        pathologieRepo.save(pathologie);
+        Blog blog = Blog.builder()
+                        .downvotes(0)
+                        .pathologie(pathologie)
+                        .postTime(new Date())
+                        .tags(new ArrayList<>())
+                        .upvotes(0)
+                        .user(null)
+                        .build();
+        blogRepo.save(blog);
+        return new ResponseEntity<>(pathologie,HttpStatus.FOUND);
+    }
+
+    public Pathologie mapText(String text) {
+        String url = urlLlama+"api/v1/ai/generate?promptMessage="+text;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<LlamaResponse> response = restTemplate.getForEntity(url, LlamaResponse.class);
+        String jsonresponse = response.getBody().getMessage();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Pathologie pathologie = new Pathologie();
+        try {
+            pathologie = objectMapper.readValue(jsonresponse, Pathologie.class);
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return pathologie;
     }
 }
