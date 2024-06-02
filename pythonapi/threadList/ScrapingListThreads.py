@@ -15,8 +15,10 @@ from urllib.parse import urlparse
 
 
 
-def get_list_pathologie(count=1, keyword ='Asthme' ):
-    
+def get_list_pathologie(keyword ='Asthme'):
+    count = 1
+    keyword = keyword.capitalize()
+    print(keyword)
     options = Options()
     options.add_experimental_option("detach",True)
 
@@ -79,8 +81,8 @@ def save_pages(pages):
             f_out.write(page)
 
 
-def func1():
-    return get_list_pathologie()
+def func1(keyword):
+    return get_list_pathologie(keyword)
 
 
 

@@ -121,17 +121,17 @@ public class BlogController {
         return new ResponseEntity<>("reaction saved",HttpStatus.OK);
     }
 
-    @GetMapping("/fetchListBlog")
-    public ResponseEntity<pythonApiResponse> fetchListBlog() {
-        String url = "http://localhost:"+port+"/listThreads";
+    @GetMapping("/fetchListBlog/{topic}")
+    public ResponseEntity<pythonApiResponse> fetchListBlog(@PathVariable("topic") String topic) {
+        String url = "http://localhost:"+port+"/listThreads/"+topic;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
         return new ResponseEntity<>(response.getBody(),HttpStatus.FOUND);
     }
 
-    @GetMapping("/fetchedBlog")
-    public ResponseEntity<Pathologie> fetchSelectedBlog() {
-        String url = "http://localhost:"+port+"/selectedThread";
+    @GetMapping("/fetchedBlog/{choice}")
+    public ResponseEntity<Pathologie> fetchSelectedBlog(@PathVariable("choice") String choice) {
+        String url = "http://localhost:"+port+"/selectedThread/"+choice;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
         Pathologie pathologie = mapText(response.getBody().getText());
