@@ -11,5 +11,6 @@ import lombok.Data;
 public class pythonApiResponse {
     private List<String> title;
     private List<String> link;
+    private List<String> tags;
     private String text;
 }

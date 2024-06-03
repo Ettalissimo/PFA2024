@@ -1,8 +1,11 @@
 package com.pfa.backend.controllers;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +63,9 @@ public class BlogController {
         User user1 = userRepo.findByEmail(user.getEmail()).orElse(null);
         if(user1==null){
             userRepo.save(user);
+        }
+        if(blog.getPathologie()!=null) {
+            pathologieRepo.save(blog.getPathologie());
         }
         return new ResponseEntity<>(savedBlog,HttpStatus.CREATED);
     }
@@ -136,17 +142,38 @@ public class BlogController {
         ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
         Pathologie pathologie = mapText(response.getBody().getText());
         pathologieRepo.save(pathologie);
+        List<String> tagsGenerated = generateTags(response.getBody().getText());
         Blog blog = Blog.builder()
                         .downvotes(0)
                         .pathologie(pathologie)
                         .postTime(new Date())
-                        .tags(new ArrayList<>())
+                        .tags(tagsGenerated)
                         .upvotes(0)
                         .user(null)
                         .build();
         blogRepo.save(blog);
         return new ResponseEntity<>(pathologie,HttpStatus.FOUND);
     }
+
+    @GetMapping("/topBlogs")
+    public List<Map.Entry<String,Integer>> getTopBlogs() {
+        List<String> allTags = new ArrayList<>();
+        List<Blog> blogs = blogRepo.findAll();
+        Map<String,Integer> tagCounter = new HashMap<>();
+        for(Blog blog:blogs) {
+            allTags.addAll(blog.getTags());
+        }
+
+        for(String tag:allTags) {
+            tagCounter.put(tag, tagCounter.getOrDefault(tag, 0)+1);
+        }
+
+        List<Map.Entry<String,Integer>> sortedTags = new ArrayList<>(tagCounter.entrySet());
+        sortedTags.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        return sortedTags;
+    }
+    
 
     public Pathologie mapText(String text) {
         String url = urlLlama+"api/v1/ai/generate?promptMessage="+text;
@@ -165,5 +192,27 @@ public class BlogController {
             e.printStackTrace();
         }
         return pathologie;
+    }
+
+    public List<String> generateTags(String text) {
+        String url = urlLlama+"api/v1/ai/generateTags?promptMessage="+text;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<LlamaResponse> response = restTemplate.getForEntity(url, LlamaResponse.class);
+        String jsonresponse = response.getBody().getMessage();
+        ObjectMapper objectMapper = new ObjectMapper();
+        pythonApiResponse tagsObject = new pythonApiResponse();
+        List<String> tags = new ArrayList<>();
+        try {
+            tagsObject = objectMapper.readValue(jsonresponse, pythonApiResponse.class);
+            tags = tagsObject.getTags();
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return tags;
     }
 }
