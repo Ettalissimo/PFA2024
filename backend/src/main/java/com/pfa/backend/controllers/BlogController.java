@@ -126,7 +126,7 @@ public class BlogController {
         String url = "http://localhost:"+port+"/listThreads/"+topic;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
-        return new ResponseEntity<>(response.getBody(),HttpStatus.FOUND);
+        return new ResponseEntity<>(response.getBody(),HttpStatus.OK);
     }
 
     @GetMapping("/fetchedBlog/{choice}")
