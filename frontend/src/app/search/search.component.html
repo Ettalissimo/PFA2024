@@ -4,7 +4,7 @@
 
 <div class="search-container">
     <input type="text" [(ngModel)]="keyword" placeholder="Search..." class="search-input-old" />
-    <button (click)="searchThreads()" class="search-button-old">
+    <button (click)="onSearch()" class="search-button-old">
       <i class="search-icon"></i> Search
     </button>
     
@@ -12,7 +12,18 @@
 
 
 <div class="list-container">
-  <app-blog-search-list class="list-blog"></app-blog-search-list>
+  <div class="list-blog">
+  <div class="blog-list" *ngIf="results$ | async as results">
+    <div  class="blog-item" *ngFor="let result of results" (click)="onResultClick(result)">
+      <div class="blog-header">
+        <span class="blog-tag">#{{keyword}}</span>
+        <span class="blog-category">Experience</span>
+      </div>
+      <div class="blog-title" >{{result}}</div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 </div>
