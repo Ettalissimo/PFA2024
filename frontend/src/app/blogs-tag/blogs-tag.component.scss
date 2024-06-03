@@ -1,0 +1,62 @@
+
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .threads {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+  }
+  
+  .header-thread-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+  .header-tag-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0; /* Background color of container */
+    padding-left: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Adjust border radius as needed */
+    margin: 20px auto;
+  }
+  
+  .left-bar {
+    flex-grow: 1; /* This will make the left bar take remaining width */
+  }
+  
+  .title {
+    padding: 20px ;
+    font-size: 38px; /* Adjust title font size */
+    font-weight: bold; /* Adjust title font weight */
+  }
+  
+  .right-buttons {
+    padding: 20px ;
+    display: flex;
+  }
+  
+  .right-buttons button {
+    margin-left: 10px; /* Adjust button spacing */
+    padding: 5px 10px; /* Adjust button padding */
+    border: none;
+    border-radius: 5px; /* Adjust button border radius */
+    background-color: #333; /* Button background color */
+    color: #fff; /* Button text color */
+    cursor: pointer;
+  }
+  
+  .right-buttons button:hover {
+    background-color: #555; /* Button background color on hover */
+  }
+  

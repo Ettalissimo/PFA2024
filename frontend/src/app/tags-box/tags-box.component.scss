@@ -25,10 +25,22 @@
     display: flex;
     justify-content: space-between;
     color: #3e5e3e;
+    cursor: pointer; /* Make the cursor a pointer to indicate it's clickable */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and color changes */
 }
 
 .tags-box ul li span {
     color: #333;
+}
+
+.tags-box ul li:hover {
+    background-color: #f0f0f0; /* Light grey background on hover */
+    color: #333; /* Darker text color on hover */
+}
+
+.tags-box ul li:active {
+    background-color: #ddd; /* Darker grey background on click */
+    color: #000; /* Black text color on click */
 }
 
 .see-more {

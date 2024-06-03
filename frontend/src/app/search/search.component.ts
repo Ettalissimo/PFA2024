@@ -13,6 +13,7 @@ export class SearchComponent {
   results$: Observable<string[]>;
   private resultClick$ = new Subject<string>();
   private links: string[] = [];
+  private titles: string[] = [];
 
   constructor(private searchService: SearchService) {
     this.results$ = new Observable<string[]>();
