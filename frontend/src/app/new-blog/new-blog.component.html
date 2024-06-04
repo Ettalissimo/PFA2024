@@ -1,48 +1,45 @@
 <div class="New-Blog-container">
-    <div class="header-New-Blog-container">
-      <div class="left-bar">
-        <div class="title">New Blog</div>
-      </div>    
-      <div class="right-buttons">
-        <button> Reset </button>
-        <button> Home </button>
-      </div>
+  <div class="header-New-Blog-container">
+    <div class="left-bar">
+      <div class="title">New Blog</div>
+    </div>    
+    <div class="right-buttons">
+      <button (click)="resetForm()">Reset</button>
+      <button routerLink="/home">Home</button>
     </div>
+  </div>
 
-
-        <form (ngSubmit)="submitBlog()">
-            <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-            </div>
-        
-            <div>
-            <label for="tags">Tags:</label>
-            <input type="text" id="tags" [(ngModel)]="blog.tags" name="tags" required>
-            </div>
-        
-            <div *ngIf="blog.pathologie">
-            <label for="pathologie">Pathologie:</label>
-            <input type="text" id="pathologie" [(ngModel)]="blog.pathologie!.name" name="pathologie" required>
-            </div>
-        
-            <div *ngIf="blog.pathologie">
-            <label for="cause">Causes:</label>
-            <textarea id="cause" [(ngModel)]="blog.pathologie!.cause" name="cause" required></textarea>
-            </div>
-        
-            <div *ngIf="blog.pathologie">
-            <label for="symptoms">Symptoms:</label>
-            <textarea type="text" [(ngModel)]="blog.pathologie!.symptoms" id="symptoms" name="symptoms" required></textarea>
-            </div>
-        
-            <div *ngIf="blog.pathologie">
-            <label for="treatment">Treatment:</label>
-            <textarea type="text" [(ngModel)]="blog.pathologie!.treatment" id="treatment" name="treatment" required></textarea>
-            </div>
-        
-            <button type="submit">Submit Blog</button>
-        </form>
+  <form (ngSubmit)="submitBlog()">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" [(ngModel)]="blog.title" name="title" required>
+    </div>
+    
+    <div>
+      <label for="tags">Tags:</label>
+      <input type="text" id="tags" [(ngModel)]="blog.tags" name="tags" required>
+    </div>
+    
+    <div *ngIf="blog.pathologie">
+      <label for="pathologie">Pathologie:</label>
+      <input type="text" id="pathologie" [(ngModel)]="blog.pathologie.name" name="pathologie" required>
+    </div>
+    
+    <div *ngIf="blog.pathologie">
+      <label for="cause">Causes:</label>
+      <textarea id="cause" [(ngModel)]="blog.pathologie.cause" name="cause" required></textarea>
+    </div>
+    
+    <div *ngIf="blog.pathologie">
+      <label for="symptoms">Symptoms:</label>
+      <textarea [(ngModel)]="blog.pathologie.symptoms" id="symptoms" name="symptoms" required></textarea>
+    </div>
+    
+    <div *ngIf="blog.pathologie">
+      <label for="treatment">Treatment:</label>
+      <textarea [(ngModel)]="blog.pathologie.treatment" id="treatment" name="treatment" required></textarea>
+    </div>
+    
+    <button type="submit">Submit Blog</button>
+  </form>
 </div>
-
-  

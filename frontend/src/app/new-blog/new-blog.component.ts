@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BlogRepresentation } from '../services/api/models/blog-representation';
 import { BlogService } from '../services/api/blogs/blog.service';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-new-blog',
@@ -9,15 +10,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-blog.component.scss']
 })
 export class NewBlogComponent {
-  blog: BlogRepresentation = {} ;
+  blog: any = {
+    idBlog: '',
+    title: '',
+    pathologie: {
+      idPathologie: '',
+      name: '',
+      cause: '',
+      symptoms: '',
+      treatment: '',
+      nbrSearch: 0
+    },
+    tags: ['Acne'],
+    upvotes: 0,
+    downvotes: 0,
+    postTime: new Date().toISOString(),
+    user: {
+      idUser: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      bio: '',
+      role: ''
+    }
+  };
 
   constructor(
     private service : BlogService,
-    private router: Router
-  ){
+    private router: Router){
 
+    }
+
+
+  
+  submitBlog_(){
+    console.log("it works");
+    this.service.createBlog(this.blog)
+      .subscribe({
+        next: (result) =>{
+          this.router.navigate(['blogs']);
+        }
+      });
+  }
+
+
+
+
+  resetForm() {
     this.blog = {
       idBlog: '',
+      title: '',
       pathologie: {
         idPathologie: '',
         name: '',
@@ -26,27 +68,33 @@ export class NewBlogComponent {
         treatment: '',
         nbrSearch: 0
       },
-      tags: [],
+      tags: ['Acne'],
       upvotes: 0,
       downvotes: 0,
-      postTime: new Date(),
+      postTime: new Date().toISOString(),
       user: {
-        idUser: '6655f1b927550a68d43d6602',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        role: 'admin'
+        idUser: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        bio: '',
+        role: ''
       }
     };
   }
-  
-  submitBlog(){
-    console.log("it works");
-    this.service.createBlog(this.blog)
-      .subscribe({
-        next: (result) =>{
-          this.router.navigate(['blogs']);
+
+  submitBlog() {
+    this.service.submitBlog(this.blog)
+      .pipe(
+        catchError(error => {
+          console.error('Error submitting blog', error);
+          return of(null); // Return a safe value or handle the error appropriately
+        })
+      )
+      .subscribe(response => {
+        if (response) {
+          console.log('Blog submitted successfully', response);
+          this.router.navigate(['blogs']); // Navigate to the blogs page
         }
       });
   }

@@ -26,6 +26,12 @@ export class BlogService {
     return this.http.post<BlogRepresentation>(BlogsUrl, product);
   }
 
+  submitBlog(blog: any){
+    const apiUrl = `${this.baseUrl}`;
+    return this.http.post<any>(apiUrl, blog);
+  }
+
+
   getListBlogs(searchWord : String) {
 
   }
