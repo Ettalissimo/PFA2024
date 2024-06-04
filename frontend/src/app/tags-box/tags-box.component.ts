@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class TagsBoxComponent {
   tags: { tag: string, count: number }[] = [];
-  testTag ="Asthme";
 
   constructor(
     private tagsService: TagService,
