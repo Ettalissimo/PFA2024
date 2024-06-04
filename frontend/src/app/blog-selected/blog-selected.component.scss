@@ -1,0 +1,130 @@
+
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .threads {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+  }
+  
+  .header-thread-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+  .header-tag-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0; /* Background color of container */
+    padding-left: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Adjust border radius as needed */
+    margin: 20px auto;
+  }
+  
+  .left-bar {
+    flex-grow: 1; /* This will make the left bar take remaining width */
+  }
+  
+  .title {
+    padding: 20px ;
+    font-size: 38px; /* Adjust title font size */
+    font-weight: bold; /* Adjust title font weight */
+  }
+  
+  .right-buttons {
+    padding: 20px ;
+    display: flex;
+  }
+  
+  .right-buttons button {
+    margin-left: 10px; /* Adjust button spacing */
+    padding: 5px 10px; /* Adjust button padding */
+    border: none;
+    border-radius: 5px; /* Adjust button border radius */
+    background-color: #333; /* Button background color */
+    color: #fff; /* Button text color */
+    cursor: pointer;
+  }
+  
+  .right-buttons button:hover {
+    background-color: #555; /* Button background color on hover */
+  }
+  
+
+.path-name {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.path-text {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+/* Container styling */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+/* Threads container styling */
+.threads {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Styling for when there is thread data */
+.threads > div {
+  margin-bottom: 20px;
+}
+
+.threads h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.threads p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.threads a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.threads a:hover {
+  text-decoration: underline;
+}
+
+.threads div {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  white-space: pre-wrap; /* To preserve formatting for new lines */
+}
+
+/* Styling for when there is no thread data */
+.threads p {
+  font-size: 18px;
+  color: #999;
+  text-align: center;
+}

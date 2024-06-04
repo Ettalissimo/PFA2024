@@ -1,0 +1,26 @@
+<div class="header-thread-container">
+    <div class="header-tag-container">
+      <div class="left-bar">
+        <div class="title">#{{keyword}}</div>
+      </div>    
+
+    </div>
+
+    <div class="container">
+      <div class="threads">
+
+        <div *ngIf="thread">
+          <h2>{{ thread.title || keyword }}</h2>
+          <p><a [href]="thread.link" target="_blank" *ngIf="thread.link">{{ thread.link }}</a></p>
+          <p *ngIf="thread.tags">Tags: {{ thread.tags }}</p>
+          <div >{{ thread.text }}</div>
+        </div>
+        <div *ngIf="!thread">
+          <p>No thread data available.</p>
+        </div>
+        
+        
+      </div>
+
+    </div>
+</div>

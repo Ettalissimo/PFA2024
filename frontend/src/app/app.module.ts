@@ -17,6 +17,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { BlogSearchListComponent } from './blog-search-list/blog-search-list.component';
 import { SearchComponent } from './search/search.component';
 import { BlogsTagComponent } from './blogs-tag/blogs-tag.component';
+import { BlogSelectedComponent } from './blog-selected/blog-selected.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BlogsTagComponent } from './blogs-tag/blogs-tag.component';
     BlogSearchListComponent,
     SearchComponent,
     BlogsTagComponent,
+    BlogSelectedComponent,
   ],
   imports: [
     BrowserModule,
