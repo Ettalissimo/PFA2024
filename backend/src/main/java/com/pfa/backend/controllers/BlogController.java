@@ -10,6 +10,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -103,7 +106,7 @@ public class BlogController {
     @GetMapping("/blog/{id}")
     public ResponseEntity<Blog> getBlog(@PathVariable("id") String id) {
         Blog blog = blogRepo.findById(id).orElse(null);
-        return new ResponseEntity<>(blog,HttpStatus.FOUND);
+        return new ResponseEntity<>(blog,HttpStatus.OK);
     }
 
     @GetMapping("/blogs")
@@ -135,11 +138,16 @@ public class BlogController {
         return new ResponseEntity<>(response.getBody(),HttpStatus.OK);
     }
 
-    @GetMapping("/fetchedBlog/{choice}")
-    public ResponseEntity<Pathologie> fetchSelectedBlog(@PathVariable("choice") String choice) {
-        String url = "http://localhost:"+port+"/selectedThread/"+choice;
+    @PostMapping("/fetchedBlog/{choice}")
+    public ResponseEntity<pythonApiResponse> fetchSelectedBlog(@PathVariable("choice") int choice,@RequestBody pythonApiResponse titleLink) {
+        String blogUrl = titleLink.getLink().get(choice);
+        String url = "http://localhost:"+port+"/selectedThread/";
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<pythonApiResponse> response = restTemplate.getForEntity(url, pythonApiResponse.class);
+        String reqBody = String.format("{\"url\":\"%s\"}", blogUrl);
+        System.out.println(reqBody);
+        HttpEntity<String> requestEntity = new HttpEntity<>(reqBody);
+        ResponseEntity<pythonApiResponse> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, pythonApiResponse.class);
+/*
         Pathologie pathologie = mapText(response.getBody().getText());
         pathologieRepo.save(pathologie);
         List<String> tagsGenerated = generateTags(response.getBody().getText());
@@ -152,7 +160,8 @@ public class BlogController {
                         .user(null)
                         .build();
         blogRepo.save(blog);
-        return new ResponseEntity<>(pathologie,HttpStatus.FOUND);
+         */
+        return new ResponseEntity<>(response.getBody(),HttpStatus.OK);
     }
 
     @GetMapping("/topBlogs")
@@ -212,7 +221,6 @@ public class BlogController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return tags;
     }
 }

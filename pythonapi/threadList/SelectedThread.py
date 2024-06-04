@@ -31,8 +31,8 @@ def extract_text_without_tags(html_content):
 
 
 
-def get_selected_thread( topic = 1 , th_url = "https://www.carenity.com/infos-maladie/asthme-88"):
-    
+def get_selected_thread(th_url = "https://www.carenity.com/infos-maladie/asthme-88"):
+    topic = 1
     options = Options()
     options.add_experimental_option("detach",True)
 
@@ -64,8 +64,8 @@ def get_selected_thread( topic = 1 , th_url = "https://www.carenity.com/infos-ma
 
 
 
-def func2():
-    html_text = get_selected_thread()
+def func2(url):
+    html_text = get_selected_thread(url)
     extracted_text = extract_text_without_tags(html_text)
     return {"text":extracted_text}
 
