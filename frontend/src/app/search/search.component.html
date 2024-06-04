@@ -1,29 +1,22 @@
-
-
 <div class="search-box-container">
-
-<div class="search-container">
+  <div class="search-container">
     <input type="text" [(ngModel)]="keyword" placeholder="Search..." class="search-input-old" />
     <button (click)="onSearch()" class="search-button-old">
       <i class="search-icon"></i> Search
     </button>
-    
-</div>
+  </div>
 
-
-<div class="list-container">
-  <div class="list-blog">
-  <div class="blog-list" *ngIf="results$ | async as results">
-    <div  class="blog-item" *ngFor="let result of results" (click)="onResultClick(result)">
-      <div class="blog-header">
-        <span class="blog-tag">#{{keyword}}</span>
-        <span class="blog-category">Experience</span>
+  <div class="list-container">
+    <div class="list-blog">
+      <div class="blog-list" *ngIf="results$ | async as results">
+        <div class="blog-item" *ngFor="let result of results.title; let i = index" (click)="onResultClick(i)">
+          <div class="blog-header">
+            <span class="blog-tag">#{{keyword}}</span>
+            <span class="blog-category">Experience</span>
+          </div>
+          <div class="blog-title">{{result}}</div>
+        </div>
       </div>
-      <div class="blog-title" >{{result}}</div>
     </div>
   </div>
-</div>
-
-</div>
-
 </div>

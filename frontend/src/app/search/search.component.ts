@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BlogService } from '../services/api/blogs/blog.service';
-import { catchError, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SearchService } from '../services/api/searchs/search.service';
 
 @Component({
@@ -10,32 +9,25 @@ import { SearchService } from '../services/api/searchs/search.service';
 })
 export class SearchComponent {
   keyword: string = '';
-  results$: Observable<string[]>;
-  private resultClick$ = new Subject<string>();
-  private links: string[] = [];
-  private titles: string[] = [];
+  results$: Observable<any>;
+  threads: any;
 
-  constructor(private searchService: SearchService) {
-    this.results$ = new Observable<string[]>();
-
-    // Handle result clicks in a reactive way
-    this.resultClick$.pipe(
-      switchMap(result => this.searchService.sendResult(result).pipe(
-        tap(response => console.log('Result sent successfully:', response)),
-        catchError(error => {
-          console.error('Error sending result:', error);
-          return of(null);
-        })
-      ))
-    ).subscribe();
-  }
+  constructor(private searchService: SearchService) {}
 
   onSearch(): void {
-    this.results$ = this.searchService.search(this.keyword);
+    this.results$ = this.searchService.searchThreads(this.keyword);
+    this.results$.subscribe(data => {
+      this.threads = data; // Storing the threads to use later when sending the selected index
+    });
   }
 
-  onResultClick(result: string): void {
-    this.resultClick$.next(result);
+  onResultClick(index: number): void {
+    if (this.threads) {
+      this.searchService.sendSelectedThread(index, this.threads).subscribe((response: any) => {
+        console.log('Selection sent successfully', response);
+      });
+    } else {
+      console.error('Threads not loaded');
+    }
   }
-
 }

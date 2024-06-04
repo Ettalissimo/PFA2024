@@ -18,8 +18,9 @@ export class BlogSearchListComponent {
   constructor(private searchService: SearchService) { }
 
   onSearch(): void {
-    this.results$ = this.searchService.search(this.keyword).pipe(
+    this.results$ = this.searchService.searchThreads(this.keyword).pipe(
       map(results => results || [])
     );
+    console.log(this.results$);
   }
 }
