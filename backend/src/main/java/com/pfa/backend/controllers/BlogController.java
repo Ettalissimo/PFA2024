@@ -164,6 +164,17 @@ public class BlogController {
         return new ResponseEntity<>(response.getBody(),HttpStatus.OK);
     }
 
+
+    @GetMapping("/blogs/{tag}")
+    public List<Blog> getBlogsForTag(@PathVariable("tag") String tag) {
+        List<Blog> blogs = blogRepo.findAll();
+        List<Blog> blogsForTag = new ArrayList<>();
+        for(Blog b:blogs) {
+            if(b.getTags().contains(tag)) blogsForTag.add(b);
+        }
+        return blogsForTag;
+    }
+    
     @GetMapping("/topBlogs")
     public List<Map.Entry<String,Integer>> getTopBlogs() {
         List<String> allTags = new ArrayList<>();
@@ -182,6 +193,7 @@ public class BlogController {
 
         return sortedTags;
     }
+
     
 
     public Pathologie mapText(String text) {
