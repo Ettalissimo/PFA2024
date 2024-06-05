@@ -18,6 +18,7 @@ import { BlogSearchListComponent } from './blog-search-list/blog-search-list.com
 import { SearchComponent } from './search/search.component';
 import { BlogsTagComponent } from './blogs-tag/blogs-tag.component';
 import { BlogSelectedComponent } from './blog-selected/blog-selected.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { BlogSelectedComponent } from './blog-selected/blog-selected.component';
     SearchComponent,
     BlogsTagComponent,
     BlogSelectedComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

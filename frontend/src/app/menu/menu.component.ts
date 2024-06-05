@@ -8,6 +8,8 @@ import {Router} from "@angular/router";
 })
 export class MenuComponent {
 
+  connectText:string = "Login";
+  toggle = 0;
   constructor(
     private router: Router
   ) {

@@ -25,6 +25,6 @@ export class TagService {
   }
 
   getBlogsByTag(tag: string): Observable<BlogRepresentation[]> {
-    return this.http.get<BlogRepresentation[]>(`${this.baseApiUrl}/blogs?tag=${tag}`);
+    return this.http.get<BlogRepresentation[]>(`${this.baseApiUrl}/blogs/${tag}`);
   }
 }

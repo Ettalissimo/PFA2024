@@ -58,15 +58,17 @@ public class BlogController {
 
     @PostMapping("/blogs")
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blog){
-        Blog savedBlog = blogRepo.save(blog);
         User user = blog.getUser();
         User user1 = userRepo.findByEmail(user.getEmail()).orElse(null);
         if(user1==null){
-            userRepo.save(user);
+            blog.setUser(new User("utilisateur"));
+        }else if(user1!=null) {
+            blog.setUser(user1);
         }
         if(blog.getPathologie()!=null) {
             pathologieRepo.save(blog.getPathologie());
         }
+        Blog savedBlog = blogRepo.save(blog);
         return new ResponseEntity<>(savedBlog,HttpStatus.CREATED);
     }
 

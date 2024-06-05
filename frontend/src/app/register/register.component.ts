@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { LoginService } from '../services/api/auth/login.service';
 
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class MyProfileComponent {
+export class RegisterComponent {
   user:UserRepresentation = {
     firstName: '',
     lastName: '',
@@ -22,11 +22,8 @@ export class MyProfileComponent {
 
   }
 
-  login():void {
-    this.loginService.loginUser(this.user).subscribe();
+  register():void {
+    this.loginService.registerUser(this.user).subscribe();
     this.router.navigate(['blogs']);
-    
   }
-
-  
 }

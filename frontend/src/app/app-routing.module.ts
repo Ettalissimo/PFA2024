@@ -7,6 +7,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { TagsBoxComponent } from './tags-box/tags-box.component';
 import { BlogsTagComponent } from './blogs-tag/blogs-tag.component';
 import { BlogSelectedComponent } from './blog-selected/blog-selected.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'blog-selected/:keyword',
     component: BlogSelectedComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
 

@@ -1,5 +1,5 @@
 <div class="tags-box">
-    <h2>Login form</h2>
+    <h2>Register form</h2>
     <div class="card">
         <div>
             <label for="email">Email:</label>
@@ -10,6 +10,6 @@
             <input type="password" id="password" [(ngModel)]="user.password" name="email" required>
         </div>
     </div>
-    <button class="see-more" (click)="login()">login</button>
-    <h5>Vous n'avez pas de compte? <a routerLink="/register">créez en un!</a></h5>
+    <button class="see-more" (click)="register()">register</button>
+    <h5>Vous avez déjà un compte? <a routerLink="/myprofile">connectez vous!</a></h5>
 </div>
