@@ -10,18 +10,18 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./new-blog.component.scss']
 })
 export class NewBlogComponent {
+
+  tagList:any = "";
   blog: any = {
-    idBlog: '',
     title: '',
     pathologie: {
-      idPathologie: '',
       name: '',
       cause: '',
       symptoms: '',
       treatment: '',
       nbrSearch: 0
     },
-    tags: ['Acne'],
+    tags: [],
     upvotes: 0,
     downvotes: 0,
     postTime: new Date().toISOString(),
@@ -35,6 +35,8 @@ export class NewBlogComponent {
     }
   };
 
+  
+
   constructor(
     private service : BlogService,
     private router: Router){
@@ -42,33 +44,18 @@ export class NewBlogComponent {
     }
 
 
-  
-  submitBlog_(){
-    console.log("it works");
-    this.service.createBlog(this.blog)
-      .subscribe({
-        next: (result) =>{
-          this.router.navigate(['blogs']);
-        }
-      });
-  }
-
-
-
 
   resetForm() {
     this.blog = {
-      idBlog: '',
       title: '',
       pathologie: {
-        idPathologie: '',
         name: '',
         cause: '',
         symptoms: '',
         treatment: '',
         nbrSearch: 0
       },
-      tags: ['Acne'],
+      tags: [],
       upvotes: 0,
       downvotes: 0,
       postTime: new Date().toISOString(),
@@ -81,9 +68,11 @@ export class NewBlogComponent {
         role: ''
       }
     };
+    this.tagList = "";
   }
 
   submitBlog() {
+    this.blog.tags = this.tagList.split(' ');
     this.service.submitBlog(this.blog)
       .pipe(
         catchError(error => {

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfa.backend.entities.Pathologie;
 import com.pfa.backend.responseClass.LlamaResponse;
 import com.pfa.backend.services.LlamaAiService;
 
