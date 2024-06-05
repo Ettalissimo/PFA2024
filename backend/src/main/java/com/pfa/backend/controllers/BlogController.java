@@ -62,7 +62,7 @@ public class BlogController {
         User user = blog.getUser();
         User user1 = userRepo.findByEmail(user.getEmail()).orElse(null);
         if(user1==null){
-            if(user!=null) userRepo.save(user);
+            userRepo.save(user);
         }
         if(blog.getPathologie()!=null) {
             pathologieRepo.save(blog.getPathologie());

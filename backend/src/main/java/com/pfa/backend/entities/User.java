@@ -19,18 +19,15 @@ public class User {
     @Id
     private String idUser;
     
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String bio;
-    public String role;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String bio;
+    private String role;
 
-    public User(String firstName, String lastName, String email, String bio, String role) {
+    public User(String firstName) {
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.bio = bio;
-        this.role = role;
     }
 
 }
